@@ -6,13 +6,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node date.js"
-    
-    
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^5.1.0",
     "moment": "^2.30.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NikitaEmrih/home.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NikitaEmrih/home/issues"
+  },
+  "homepage": "https://github.com/NikitaEmrih/home#readme"
 }
