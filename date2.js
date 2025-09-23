@@ -1,18 +1,19 @@
 const express = require('express');
 const moment = require('moment'); 
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const PORT = 8000;
 const HOST = 'localhost'
 
 
-function Timestamp() {
-    return moment().format('YYYY-MM-DD HH:mm:ss'); 
-}
+const arrayPath = path.join(__dirname, "array.json")
+const array = JSON.parse(fs.readFileSync(arrayPath, "utf-8"))
 
 
-app.get('/timestamp', (req, res) => {
-    res.json({ timestamp: Timestamp() });
+app.get('/posts', (req, res) => {
+    res.status(200).json(array);
 });
 
 
