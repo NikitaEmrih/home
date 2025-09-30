@@ -12,22 +12,47 @@ const arrayPath = path.join(__dirname, "array.json")
 const posts = JSON.parse(fs.readFileSync(arrayPath, "utf-8"))
 
 
-function Timestamp() {
+function timestamp() {
     return moment().format('YYYY-MM-DD HH:mm:ss'); 
 }
 
 
 app.get('/timestamp', (req, res) => {
-    res.json({ timestamp: Timestamp() });
+    res.json({ timestamp: timestamp() });
 });
 
 
 
-app.get('/posts', (req, res) => {
-    res.status(200).json(array);
-});
+app.get("/posts", (req, res) => {
+    console.log(req.query)
+    const skip = req.query.skip
+    const take = req.query.take
 
+    if (skip) {
+        if (isNaN(+skip)) {
+            res.status(400).json("skip is not a number")
+            return;
+        }
+    }
 
+    if (take) {
+        if (isNaN(+take)) {
+            res.status(400).json("take is not a number")
+            return;
+        }
+    }
+    if (skip) {
+        const skippPosts = posts.slice(+skip)
+        res.status(200).json(skippPosts)
+        return;
+    }
+    if (take) {
+        const takePosts = posts.slice(0, +take)
+        res.status(200).json(takePosts)
+        return;
+    }
+    res.status(200).json(posts)
+})
 
 
 app.get("/posts/:id", (req, res) => {
