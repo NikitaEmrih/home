@@ -2,10 +2,12 @@ const express = require('express');
 const moment = require('moment'); 
 const fs = require('fs');
 const path = require('path');
+const fsPromises = require("fs/promises")
 
 const app = express();
 const PORT = 8000;
 const HOST = 'localhost'
+app.use(express.json())
 
 
 const arrayPath = path.join(__dirname, "array.json")
@@ -19,6 +21,42 @@ function timestamp() {
 
 app.get('/timestamp', (req, res) => {
     res.json({ timestamp: timestamp() });
+});
+
+
+app.post("/posts", async (req, res) => {
+    const body = req.body;
+    console.log("POST body:", body);
+
+    if (!body) {
+        res.status(422).json("Body is required.");
+        return;
+    }
+
+    const newPost = { ...body, id: posts.length + 1 };
+
+    if (!newPost.title) {
+        res.status(422).json("title is required.");
+        return;
+    }
+    if (!newPost.description) {
+        res.status(422).json("description is required.");
+        return;
+    }
+    if (!newPost.image) {
+        res.status(422).json("image is required.");
+        return;
+    }
+
+    try {
+        posts.push(newPost);
+        await fsPromises.writeFile(arrayPath, JSON.stringify(posts, null, 4)); 
+        console.log("Created:", newPost);
+        res.status(201).json(newPost); 
+    } catch (error) {
+        console.error(error);
+        res.status(500).json("Post creation error");
+    }
 });
 
 

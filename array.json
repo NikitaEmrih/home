@@ -1,23 +1,37 @@
 [
     {
-      "id": 1,
-      "title": "Первый пост",
-      "description": "Описание первого поста",
-      "image": "https://kartinki.pics/74414-kartinki-dlja-objavlenij.html",
-      "likes": 12
+        "id": 1,
+        "title": "Первый пост",
+        "description": "Описание первого поста",
+        "image": "https://kartinki.pics/74414-kartinki-dlja-objavlenij.html",
+        "likes": 12
     },
     {
-      "id": 2,
-      "title": "Второй пост",
-      "description": "Описание второго поста",
-      "image": "https://kartinki.pics/74414-kartinki-dlja-objavlenij.html",
-      "likes": 30
+        "id": 2,
+        "title": "Второй пост",
+        "description": "Описание второго поста",
+        "image": "https://kartinki.pics/74414-kartinki-dlja-objavlenij.html",
+        "likes": 30
     },
     {
-      "id": 3,
-      "title": "Третий пост",
-      "description": "Описание третьего поста",
-      "image": "https://kartinki.pics/74414-kartinki-dlja-objavlenij.html",
-      "likes": 7
+        "id": 3,
+        "title": "Третий пост",
+        "description": "Описание третьего поста",
+        "image": "https://kartinki.pics/74414-kartinki-dlja-objavlenij.html",
+        "likes": 7
+    },
+    {
+        "id": 4,
+        "title": "Первый пост",
+        "description": "Описание первого поста",
+        "image": "https://kartinki.pics/74414-kartinki-dlja-objavlenij.html",
+        "likes": 12
+    },
+    {
+        "id": 5,
+        "title": "Первый пост",
+        "description": "Описание первого поста",
+        "image": "https://kartinki.pics/74414-kartinki-dlja-objavlenij.html",
+        "likes": 12
     }
-  ]
+]
