@@ -33,5 +33,19 @@
         "description": "Описание первого поста",
         "image": "https://kartinki.pics/74414-kartinki-dlja-objavlenij.html",
         "likes": 12
+    },
+    {
+        "id": 6,
+        "title": "Первый пост",
+        "description": "Описание первого поста",
+        "image": "https://kartinki.pics/74414-kartinki-dlja-objavlenij.html",
+        "likes": 12
+    },
+    {
+        "id": 7,
+        "title": "Первый пост",
+        "description": "Описание первого поста",
+        "image": "https://kartinki.pics/74414-kartinki-dlja-objavlenij.html",
+        "likes": 12
     }
 ]
