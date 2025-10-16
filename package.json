@@ -23,5 +23,11 @@
   "bugs": {
     "url": "https://github.com/NikitaEmrih/home/issues"
   },
-  "homepage": "https://github.com/NikitaEmrih/home#readme"
+  "homepage": "https://github.com/NikitaEmrih/home#readme",
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.8.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
 }

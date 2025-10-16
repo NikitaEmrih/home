@@ -1,7 +1,9 @@
-const PostService = require('./post.service')
 
-const PostController = {
-     getAll: (req, res) => {
+import { Request, Response } from "express"
+import { PostService } from "./post.service"
+
+export const PostController = {
+     getAll: (req: Request, res: Response) => {
         const { skip, take } = req.query;
 
         if (skip && isNaN(+skip)) {
@@ -13,12 +15,20 @@ const PostController = {
             return
         }
 
-        const posts = PostService.getAll(skip, take);
+        const posts = PostService.getAll(
+            skip ? Number(skip) : undefined,
+            take ? Number(take) : undefined
+        );
         res.status(200).json(posts);
     },
 
-    getById: (req, res) => {
-        const id = +req.params.id;
+    getById: (req: Request, res: Response) => {
+        if (!req.params.id){
+            res.status(400).json("id is required");
+            return
+        }
+        const id = +req.params.id
+        
 
         if (isNaN(id)) {
              res.status(400).json("id must be a number");
@@ -33,7 +43,7 @@ const PostController = {
 
         res.json(post);
     },
-    create: async (req, res) => { 
+    create: async (req: Request, res: Response) => { 
         const body = req.body;
     
         if (!body) {
@@ -60,10 +70,35 @@ const PostController = {
             console.error(error);
             res.status(500).json("Post creation error");
         }
-    }    
+    },   
+    update :async (req: Request, res: Response) => {
+        const id = req.params.id
+        if (!id){
+            res.status(400).json("id is required");
+            return
+        }
+        if (isNaN(+id)){
+            res.status(400).json("id must be an integer");
+            return;
+        }
+        const body = req.body
+        if (body.id){
+            res.status(422).json("body must not consist id");
+            return
+        }
+        const post = await PostService.update(+id, body)
+        if (!post) {
+            res.status(500).json("Post creation error")
+            return
+        }
+        res.status(200).json(post)
+        
+    },
 }
 
 
-module.exports = PostController
+
+
+exports = {PostController}
 
 
