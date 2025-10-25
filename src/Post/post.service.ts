@@ -1,11 +1,12 @@
 import fs from "fs";
 import path from "path";
 import fsPromises from "fs/promises";
-import { Post, CreatePostData, UpdatePostData } from './post.types'
+import { Post, PostCreate, PostUpdate } from './post.types'
 
 
 const postsPath = path.join(__dirname, "array.json")
 const posts: Post[] = JSON.parse(fs.readFileSync(postsPath, "utf-8"))
+
 export const PostService = {
     
     getAll(skip?: number, take?: number) {
@@ -18,23 +19,25 @@ export const PostService = {
         }
         return result;
     },
+
     getById(id: number) {
         return posts.find(po => po.id === id);
     },
-    async create (data:CreatePostData ){
-        try{
+
+    async create (data: PostCreate) {
+        try {
             const newPost = { ...data, id: posts.length + 1 }
             posts.push(newPost) 
             await fsPromises.writeFile(postsPath, JSON.stringify(posts, null, 4)) 
             console.log(newPost) 
             return newPost
-        
-        } catch (error){
+        } catch (error) {
             console.log(error)
             return null
         }
     },
-    async update(id: number, data:UpdatePostData){
+
+    async update(id: number, data: PostUpdate) {
         const post = this.getById(id)
         if (!post) {
             return null
@@ -50,8 +53,17 @@ export const PostService = {
             return null
         }
     },
+    async delete(id: number) {
+        const index = posts.findIndex(po => po.id === id)
+        if (index === -1) return null
+
+        const [deletedPost] = posts.splice(index, 1)
+        try {
+            await fsPromises.writeFile(postsPath, JSON.stringify(posts, null, 4))
+            return deletedPost
+        } catch (error) {
+            console.log(error)
+            return null
+        }
+    }
 }
-
-
-
-
