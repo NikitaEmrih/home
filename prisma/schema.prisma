@@ -18,8 +18,7 @@ model Post {
   id          Int      @id @default(autoincrement())
   title       String
   description String
-  image       String?
-  tags        PostTag[]
+  image       String
 }
 
 model Tag {

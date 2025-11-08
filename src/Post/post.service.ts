@@ -1,69 +1,17 @@
-import fs from "fs";
-import path from "path";
-import fsPromises from "fs/promises";
-import { Post, PostCreate, PostUpdate } from './post.types'
+import { Post, PostServiceContract } from './post.types'
+import { PostRepository } from './post.repository'
 
-
-const postsPath = path.join(__dirname, "array.json")
-const posts: Post[] = JSON.parse(fs.readFileSync(postsPath, "utf-8"))
-
-export const PostService = {
-    
-    getAll(skip?: number, take?: number) {
-        let result = posts;
-        if (skip) {
-            result = result.slice(+skip);
-        }
-        if (take) {
-            result = result.slice(0, +take);
-        }
-        return result;
+export const PostService: PostServiceContract = {
+    getAll(skip, take) {
+        return PostRepository.getAll(skip, take)
     },
-
-    getById(id: number) {
-        return posts.find(po => po.id === id);
+    getById(id) {
+        return PostRepository.getById(id)
     },
-
-    async create (data: PostCreate) {
-        try {
-            const newPost = { ...data, id: posts.length + 1 }
-            posts.push(newPost) 
-            await fsPromises.writeFile(postsPath, JSON.stringify(posts, null, 4)) 
-            console.log(newPost) 
-            return newPost
-        } catch (error) {
-            console.log(error)
-            return null
-        }
+    create(data) {
+        return PostRepository.create(data)
     },
-
-    async update(id: number, data: PostUpdate) {
-        const post = this.getById(id)
-        if (!post) {
-            return null
-        }
-
-        try {   
-            const updatedPost = { ...post, ...data }
-            posts.splice(id - 1, 1, updatedPost)
-            await fsPromises.writeFile(postsPath, JSON.stringify(posts, null, 4))
-            return updatedPost
-        } catch (error) {
-            console.log(error)
-            return null
-        }
+    update(id, data) {
+        return PostRepository.update(id, data)
     },
-    async delete(id: number) {
-        const index = posts.findIndex(po => po.id === id)
-        if (index === -1) return null
-
-        const [deletedPost] = posts.splice(index, 1)
-        try {
-            await fsPromises.writeFile(postsPath, JSON.stringify(posts, null, 4))
-            return deletedPost
-        } catch (error) {
-            console.log(error)
-            return null
-        }
-    }
 }

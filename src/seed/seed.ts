@@ -35,5 +35,5 @@ async function deletePost() {
 }
 
 
-// createPost();
+createPost();
 deletePost();
